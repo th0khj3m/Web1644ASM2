@@ -1,4 +1,3 @@
-const { response } = require('express')
 var express = require('express')
 var app = express()
 
@@ -6,9 +5,6 @@ app.set('view engine', 'hbs')
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'));
 
-
-const cookieParser = require("cookie-parser")
-const session = require('express-session');
 const { insertNewProduct, getAllProducts, deleteProductById, updateProduct, findProductById } = require('./databaseHandler');
 
 //creating 24 hours from milliseconds

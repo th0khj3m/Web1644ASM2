@@ -1,6 +1,7 @@
-var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb://0.0.0.0:27017'
 const { ObjectId } = require('bson')
+var MongoClient = require('mongodb').MongoClient
+var url = 'mongodb+srv://lolvuongong:TooWild147258@cluster0.vgu0oxs.mongodb.net/?retryWrites=true&w=majority'
+
 
 async function getDB() {
     let client = await MongoClient.connect(url)
@@ -36,8 +37,5 @@ async function updateProduct(id, name, price, picUrl) {
     await db.collection("products").updateOne({ _id: ObjectId(id) },
         { $set: { "name": name, "price": price, "picture": picUrl } })
 }
-
-
-
 
 module.exports = {insertNewProduct, getAllProducts, deleteProductById, findProductById, updateProduct}
