@@ -1,7 +1,17 @@
 var express = require('express')
 var app = express()
 
+const hbs = require('hbs')
 app.set('view engine', 'hbs')
+hbs.registerHelper('ifcond', function(price) {
+    if (price >= 50) {
+        return 'green'
+    }
+    else {
+        return 'blue'
+    }
+});
+
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'));
 
@@ -22,15 +32,31 @@ app.get('/insertProduct', (req, res) => {
 app.post('/insertProduct', async (req, res) => {
     const name = req.body.txtProductName
     const price = req.body.txtProductPrice
+    const quantity = req.body.txtProductQuantity
     const picUrl = req.body.txtProductPic
-    const newProduct = { 
-        name: name, 
-        price: Number.parseFloat(price),
-        picture: picUrl
+    if (name.length < 5) {
+        res.render('insert', {'warning': "Not enough length for name"})
     }
-    await insertNewProduct(newProduct)
-    res.redirect('/')
+    else if (price < 8 || price > 999) {
+        res.render('insert', {'warning' : "Invalid price"})
+    }
+    else if (quantity < 8 || quantity > 999) {
+        res.render('insert', {'warning': "Invalid Quantity"})
+    }
+    else {
+        const newProduct = { 
+            name: name, 
+            price: Number.parseFloat(price),
+            quantity: Number.parseFloat(quantity),
+            picture: picUrl
+        }
+        await insertNewProduct(newProduct)
+        res.redirect('/')
+    }
+
 })
+
+
 
 app.get('/deleteProduct', async (req, res) => {
     const id = req.query.id
@@ -48,8 +74,9 @@ app.post('/editProduct', async (req, res) => {
     const id = req.body.id
     const name = req.body.txtProductName
     const price = req.body.txtProductPrice
+    const quantity = req.body.txtProductQuantity
     const picUrl = req.body.txtProductPic
-    await updateProduct(id, name, price, picUrl)
+    await updateProduct(id, name, price, quantity, picUrl)
     res.redirect('/')
 })  
 

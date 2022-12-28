@@ -3,6 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- CSS only -->
     <link rel="stylesheet" href="/css/style.css" />
     <link
@@ -11,24 +12,36 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <!-- Jquery -->
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+    ></script>
+
+    <!-- Handlebars only -->
+    <script
+      src="https://twitter.github.io/typeahead.js/js/handlebars.js"
+    ></script>
+
     <title>Home Page</title>
   </head>
   <body>
-    <h1 class = "hero">Home Page</h1>
-        <h2>View Products</h2>
+    <h1 class="hero">Home Page</h1>
+    <h2>View Products</h2>
     <a href="/insertProduct" class="button">Adding Product</a>
     <div class="content">
       <ul>
         {{#each results}}
           <li>
             <br />
-            <div class = "content2">
+            <div class="content2">
               <img src="{{picture}}" alt="" width="150" height="100" />
               <div class="productContent">
                 <br />
                 <span> {{name}} </span>
                 <br />
-                <span> {{price}} </span>
+                  <span style="color: {{ifcond price}}"> {{price}} </span>
+                <br>
+                <span> {{quantity}} </span>
               </div>
               <div class="buttons">
                 <a
@@ -42,7 +55,6 @@
                 >Edit</a>
               </div>
             </div>
-
           </li>
         {{/each}}
       </ul>

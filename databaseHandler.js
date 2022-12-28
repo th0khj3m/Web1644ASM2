@@ -1,7 +1,7 @@
 const { ObjectId } = require('bson')
 var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb+srv://lolvuongong:TooWild147258@cluster0.vgu0oxs.mongodb.net/?retryWrites=true&w=majority'
 
+var url = 'mongodb+srv://lolvuongong:TooWild147258@cluster0.vgu0oxs.mongodb.net/?retryWrites=true&w=majority'
 
 async function getDB() {
     let client = await MongoClient.connect(url)

@@ -13,14 +13,20 @@
   </head>
   <body>
     <h1 style = "text-align: center; padding: 10px 0" class = "text-info"> New Product </h1>
+    <p class = "alert alert-danger alert-dismissible fade show" id = "warning"> {{warning}} </p>
+    
     <form action="/insertProduct" method="post" class="container">
       <div class="form-group">
         <label>Product Name</label>
-        <input type="text" class="form-control" name="txtProductName" required />
+        <input type="text" class="form-control" name="txtProductName" onclick= "deleteWarning()" required />
       </div>
       <div class="form-group">
         <label>Product Price</label>
         <input type="number" class="form-control" name="txtProductPrice" min = "0" required />
+      </div>
+      <div class="form-group">
+        <label>Product Quantity</label>
+        <input type="number" class="form-control" name="txtProductQuantity" min = "0" required />
       </div>
       <div class="form-group">
         <label for = "url">Product URL</label>
@@ -30,4 +36,11 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </body>
+  <script>
+    function deleteWarning() {
+      const warning = document.getElementById("warning")
+      warning.innerHTML = ""
+      warning.setAttribute('hidden', true)
+    }
+  </script>
 </html>
