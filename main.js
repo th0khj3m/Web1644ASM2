@@ -32,15 +32,15 @@ app.get('/insertProduct', (req, res) => {
 app.post('/insertProduct', async (req, res) => {
     const name = req.body.txtProductName
     const price = req.body.txtProductPrice
-    const quantity = req.body.txtProductQuantity
+    const quantity = Number.parseFloat(req.body.txtProductQuantity)
     const picUrl = req.body.txtProductPic
-    if (name.length < 5) {
+    if (isNaN(name) || name.length < 5) {
         res.render('insert', {'warning': "Not enough length for name"})
     }
-    else if (price < 8 || price > 999) {
+    else if (isNaN(price) || price < 8 || price > 999) {
         res.render('insert', {'warning' : "Invalid price"})
     }
-    else if (quantity < 8 || quantity > 999) {
+    else if (isNaN(quantity) || (quantity < 8 || quantity > 999)) {
         res.render('insert', {'warning': "Invalid Quantity"})
     }
     else {
@@ -55,8 +55,6 @@ app.post('/insertProduct', async (req, res) => {
     }
 
 })
-
-
 
 app.get('/deleteProduct', async (req, res) => {
     const id = req.query.id
