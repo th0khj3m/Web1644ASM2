@@ -31,10 +31,10 @@ app.get('/insertProduct', (req, res) => {
 
 app.post('/insertProduct', async (req, res) => {
     const name = req.body.txtProductName
-    const price = req.body.txtProductPrice
+    const price = Number.parseFloat(req.body.txtProductPrice)
     const quantity = Number.parseFloat(req.body.txtProductQuantity)
     const picUrl = req.body.txtProductPic
-    if (isNaN(name) || name.length < 5) {
+    if (isNaN(name) && name.length < 5) {
         res.render('insert', {'warning': "Not enough length for name"})
     }
     else if (isNaN(price) || price < 8 || price > 999) {
